@@ -1,0 +1,437 @@
+{
+	"info": {
+		"_postman_id": "29c33d3c-7be6-4b2f-8231-43f74a2b77ec",
+		"name": "tpComandaSantiagoGonzalez",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AltaSocio (POST)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "santi",
+							"type": "text"
+						},
+						{
+							"key": "apellido",
+							"value": "perez",
+							"type": "text"
+						},
+						{
+							"key": "usuario",
+							"value": "SantiP",
+							"type": "text"
+						},
+						{
+							"key": "clave",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/altaSocio",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"altaSocio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AltaEmpleado (POST)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "jorge",
+							"type": "text"
+						},
+						{
+							"key": "apellido",
+							"value": "c41",
+							"type": "text"
+						},
+						{
+							"key": "tipo",
+							"value": "mozo",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/altaEmpleado",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"altaEmpleado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AltaCliente (POST)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "lionel",
+							"type": "text"
+						},
+						{
+							"key": "apellido",
+							"value": "messi",
+							"type": "text"
+						},
+						{
+							"key": "clave",
+							"value": "asd1234",
+							"type": "text"
+						},
+						{
+							"key": "usuario",
+							"value": "LioMesi",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/altaCliente",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"altaCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AltaPedido (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvIjoiTGlvTWVzaSIsImNsYXZlIjoiJDJ5JDEwJFFoVUNickM5OXlLUVp2S2hMdjh3SU9oMVAuV3cyLnhFQkMuaHY2Z2RwU2hUcWJOb3pibHF1IiwidGlwbyI6ImNsaWVudGUifQ.HubPPFox5d98nIwI-jdyec1pJKvqfwU3C9BxoM84Dvg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "item1",
+							"value": "cerveza",
+							"type": "text"
+						},
+						{
+							"key": "item2",
+							"value": "empanadas",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "item3",
+							"value": "vino",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/altaPedido",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"altaPedido"
+					]
+				},
+				"description": "Alta de pedido autenticando el cliente con token, verificando disponibilidad del mozo para tender la mesa y tomando el pedido,\r\ndevolviendo lo que se pidio y el codigo del pedido y de la mesa"
+			},
+			"response": []
+		},
+		{
+			"name": "Estado del pedido (GET)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvIjoiTGlvTWVzaSIsImNsYXZlIjoiJDJ5JDEwJGZ2Y0YwMnNFTGp2eFA4aUhQb3ZjeU9ZSktwZEZwZkR3c0prVGZyVFwvSTZUb1FqdDRSLjUzLiIsInRpcG8iOiJjbGllbnRlIn0.uprsPNZ4y1mHEoG_ECiWNCWdX1vWfFg15e9ytvvUw-w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "codigoMesa",
+							"value": "13f10",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "codigoPedido",
+							"value": "ae497",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/getPedido/codigoMesa/31163/codigoPedido/f0b22",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"getPedido",
+						"codigoMesa",
+						"31163",
+						"codigoPedido",
+						"f0b22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PrepararPedido (POST)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "codigo",
+							"value": "f0b22",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/prepararPedido",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"prepararPedido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ServirPedido (POST)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "codigo",
+							"value": "f0b22",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/servirPedido",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"servirPedido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estado de pedidos (Solo socios). (GET)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvIjoiU2FudGlQIiwiY2xhdmUiOiIkMnkkMTAkeXY5TTJ6MXNWUm9hbE5WcVlvcGltLk1pRERoT1R6VE9INWFObzc4REI1UmNPcUk3bWFYa20iLCJ0aXBvIjoic29jaW8ifQ.4qRTv0o19Z4aOWgPzWy_64GsDXkYP-jO--08IJNlDBw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/getPedidoSocio",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"getPedidoSocio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CerrarMesa (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvIjoiU2FudGlQIiwiY2xhdmUiOiIkMnkkMTAkeXY5TTJ6MXNWUm9hbE5WcVlvcGltLk1pRERoT1R6VE9INWFObzc4REI1UmNPcUk3bWFYa20iLCJ0aXBvIjoic29jaW8ifQ.4qRTv0o19Z4aOWgPzWy_64GsDXkYP-jO--08IJNlDBw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "codigoMesa",
+							"value": "31163",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/cerrarMesa",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"cerrarMesa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CobrarMesa (POST)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "sergioasd",
+							"type": "text"
+						},
+						{
+							"key": "apellido",
+							"value": "coca123",
+							"type": "text"
+						},
+						{
+							"key": "codigoMesa",
+							"value": "31163",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/cobrarMesa",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"cobrarMesa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AltaMesa (Post)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvIjoiU2FudGlQIiwiY2xhdmUiOiIkMnkkMTAkeXY5TTJ6MXNWUm9hbE5WcVlvcGltLk1pRERoT1R6VE9INWFObzc4REI1UmNPcUk3bWFYa20iLCJ0aXBvIjoic29jaW8ifQ.4qRTv0o19Z4aOWgPzWy_64GsDXkYP-jO--08IJNlDBw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "descripcion",
+							"value": "mesa para 8 personas",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://tpprogramacion3.000webhostapp.com/altaMesa",
+					"protocol": "https",
+					"host": [
+						"tpprogramacion3",
+						"000webhostapp",
+						"com"
+					],
+					"path": [
+						"altaMesa"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
