@@ -98,7 +98,13 @@ class PedidoController {
                         $j = $i+1;
                         if($j<=count($parsedBody)){
                             $item = new Item;
-                            $item->descripcion = $parsedBody['item'.$j];
+                            if($parsedBody['item'.$j] != ""){
+
+                                $item->descripcion = $parsedBody['item'.$j];
+                            }
+                            else{
+                                $item->descripcion = " ";
+                            }
                             $item->id_pedido = $pedido->id;
                             $item->id_empleado = $mozoDisponible->id;
                             $item->tiempoEstimado = '00:00:00';
