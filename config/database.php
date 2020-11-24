@@ -11,15 +11,11 @@ class Database{
         $capsule->addConnection([
             'driver'    => 'mysql',
             'host'      => 'localhost',
-            'database'  => 'tpcomanda',
-            'username'  => 'root',
-            'password'  => '',
-            // 'host'      => 'sql200.tonohost.com',
-            // 'database'  => 'ottos_27262641_comanda',
-            // 'username'  => 'ottos_27262641',
-            // 'password'  => 's147523698',
+            'database'  => 'id15458056_tpcomanda',
+            'username'  => 'id15458056_santigo05',
+            'password'  => 'Tpprogramacion-3',
             'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
+            // 'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
         ]);
         

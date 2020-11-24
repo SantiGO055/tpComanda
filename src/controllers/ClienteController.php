@@ -1,8 +1,6 @@
 <?php
 namespace App\Controllers;
 use Clases\Usuario;
-use Clases\Auto;
-use Clases\Servicio;
 use Clases\Empleados;
 use Clases\Personas;
 

@@ -1,18 +1,18 @@
 {
-    "name": "santigo/slim-php",
+    "name": "santigonzalez/tpcomanda",
     "description":"",
     "require": {
         "firebase/php-jwt": "^5.2",
-        "slim/slim": "4.*",
+        "slim/slim": "^4.6",
         "slim/psr7": "^1.2",
         "illuminate/database": "^8.13",
         "illuminate/events": "^8.13"
     },
-    "autoload":{
-        "psr-4":{
-            "Clases\\":"clases/",
-            "App\\":"src/",
-            "Config\\":"config"
+    "autoload": {
+        "psr-4": {
+            "Clases\\": "clases",
+            "App\\": "src/",
+            "Config\\": "config"
         }
     }
 }

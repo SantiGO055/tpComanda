@@ -2,6 +2,7 @@
 require __DIR__ . '/vendor/autoload.php';
 // require_once __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/config/database.php';
+
 use Clases\Profesor;
 use Clases\Materias;
 use Clases\Token;
@@ -39,11 +40,13 @@ use App\Middlewares\ClienteMiddleware;
 
 
 session_start();
-
+// $container = new Container();
+// AppFactory::setContainer($container);
 $app = AppFactory::create();
-$app->setBasePath("/tpComandaSantiagoGonzalez");
-// $app->addBodyParsingMiddleware();
 
+// $app->setBasePath("/tpComandaSantiagoGonzalez");
+
+$app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
 
 
@@ -55,25 +58,21 @@ $app->group('', function (RouteCollectorProxy $group) {
     $group->post('/altaEmpleado', EmpleadoController::class . ":registro");
     $group->post('/altaCliente', ClienteController::class . ":registro");
     $group->post('/altaPedido', PedidoController::class . ":alta")->add(new ClienteMiddleware);
-    $group->get('/getPedido', PedidoController::class . ":getPedido")->add(new ClienteMiddleware);
+    $group->get('/getPedido/codigoMesa/{codigoMesa}/codigoPedido/{codigoPedido}', PedidoController::class . ":getPedido")->add(new ClienteMiddleware);
     $group->post('/prepararPedido', PedidoController::class . ":prepararPedido");
     $group->post('/servirPedido', PedidoController::class . ":servirPedido");
-    $group->get('/getPedidoSocio', PedidoController::class . ":getPedidoSocio")->add(new AdminMiddleware);
+    $group->post('/cobrarMesa', PedidoController::class . ":cobrarMesa");
+
+    $group->group('', function (RouteCollectorProxy $groupAdmin) {
+        $groupAdmin->get('/getPedidoSocio', PedidoController::class . ":getPedidoSocio");
+        $groupAdmin->get('/getEmpleados', SocioController::class . ":getEmpleados");
+        $groupAdmin->get('/getAllPedidos', SocioController::class . ":getAllPedidos");
+        $groupAdmin->post('/cerrarMesa', PedidoController::class . ":cerrarMesa");
+        $groupAdmin->post('/altaMesa', PedidoController::class . ":altaMesa");
+
+
+    })->add(new AdminMiddleware);
     // $group->post('/altaMesa', PedidoController::class . ":altaMesa")->add(new AdminMiddleware);
-
-    
-
-
-    // $group->group('', function(RouteCollectorProxy $groupSocios) {
-    //     $groupSocios->post('/materia', MateriaController::class . ":altaMateria")->add(new AdminMiddleware);
-    //     $groupSocios->post('/inscripcion/{idMateria}', MateriaController::class . ":cargarInscripcion")->add(new AlumnoMiddleware);
-    //     $groupSocios->put('/notas/{idMateria}', MateriaController::class . ":cargarNotas")->add(new ProfesorMiddleware);
-    //     $groupSocios->get('/inscripcion/{idMateria}', MateriaController::class . ":MostrarInscriptos")->add(new AdminProfesorMiddleware);
-    //     $groupSocios->get('/materia', MateriaController::class . ":MostrarMaterias");
-    //     $groupSocios->get('/notas/{idMateria}', MateriaController::class . ":mostrarTodasLasNotas");
-
-        
-    // })->add(new UserMiddleware)->add(new AuthMiddleware);
 
 });
 // ->add(new UserMiddleware)->add(new AuthMiddleware); //primero se ejecuta el ultimo, si no da ok el auth no se ejecuta el userMiddleware

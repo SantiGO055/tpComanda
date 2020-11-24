@@ -1,6 +1,7 @@
 <?php
 namespace App\Middlewares;
 
+use Slim\Psr7\Response;
 
 class JsonMiddleware{
 

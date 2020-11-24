@@ -5,12 +5,17 @@ use Clases\Auto;
 use Clases\Servicio;
 use Clases\Socios;
 use Clases\Personas;
-
-use App\Models\Socio;
-
-use App\Models\Turno;
 use Clases\Token;
 use Clases\Archivos;
+
+use App\Models\Socio;
+use App\Models\Empleado;
+use App\Models\EstadoEmpleado;
+use App\Models\Item;
+use App\Models\Turno;
+use App\Models\Pedido;
+
+
 
 class SocioController {
     public $datos = array ('datos' => '.');
@@ -117,13 +122,6 @@ class SocioController {
         $usuario = User::where('email', $email)
         ->first();
         
-
-        
-        // $usuario = $this->getUserEmail($request,$response,$args,$email);
-        
-        // $usuarioPrueba = json_decode($usuario);
-        // var_dump($usuario);
-        // echo $usuario;
         
         if($usuario != null){
             
@@ -151,155 +149,31 @@ class SocioController {
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
-    // public function Materia($request, $response, $args){
-    //     $parsedBody = $request->getParsedBody();
-    //     $token = $request->getHeader('token');
-    //     // $token = $header['token'];
-    //     $nombreMateria = $parsedBody['nombre'];
-    //     $cuatrimestre = $parsedBody['cuatrimestre'];
-    //     // $cuatrimestre = $_POST['cuatrimestre'] ?? "";
+
+    public function getEmpleados($request, $response, $args){
+        $empleados = Empleado::get()->toArray();
+        $datos['datos'] = " ";
         
-    //     $usuarioLogueado = Token::VerificarToken($token);
-        
-    //     if (!$usuarioLogueado) {
-    //         $datos = "Usuario no logueado, token incorrecto!";
-    //     }
-    //     else{
-    //         $materia = new Materias($nombreMateria,$cuatrimestre);
+        if($empleados != null){
             
+            foreach ($empleados as $key => $value) {
+                $estadoEmpleado = EstadoEmpleado::where('id',$value['id_estado'])->first();
+                // $estadoDePedido = EstadoPedido::where('id',$value['id_estado'])->first();
+                // $cliente = Cliente::where('id',$value['id_cliente'])->first();
+                // $empleado = Empleado::where('id',$value['id_empleado'])->first();
+                // $mesa = Mesa::where('id',$value['id_mesa'])->first();
+                // $estadoMesa = EstadoMesa::where('id',$mesa->id_estado)->first();
+                
 
-    //         // if(Archivos::guardarJson($materia,'materias.json')){
-    //         //     $datos = "Materia guardada correctamente";
-    //         // }
-    //         // else{
-    //         //     $datos = "Ocurrio un error al guardar la materia";
-    //         // }
-    //     }
-    //     $payload = json_encode($datos);
-
-    //     $response->getBody()->write($payload);
-    //     return $response
-    //     ->withHeader('Content-Type', 'application/json');
-    // }
-    
-    public function Vehiculo($request, $response, $args){
-        // echo "me autentique";
-        // var_dump($response);
-        $parsedBody = $request->getParsedBody();
-
-        $marca = $parsedBody['marca'];
-        $modelo = $parsedBody['modelo'];
-        $patente = $parsedBody['patente'];
-        $precio = $parsedBody['precio'];
-        
-        $rta = Vehiculo::where('patente', $patente)->first();
-        
-        
-        if($rta == null){
-            $vehiculo = new Vehiculo;
-            $vehiculo->marca = $marca;
-            $vehiculo->modelo = $modelo;
-            $vehiculo->patente = $patente;
-            $vehiculo->precio = $precio;
-            $rta = $vehiculo->save();
-            $datos = array( 'datos' => 'Se guardaron los datos del vehiculo correctamente!');
-        }
-        else if($rta->patente != $patente){
-            $vehiculo = new Vehiculo;
-            $vehiculo->marca = $marca;
-            $vehiculo->modelo = $modelo;
-            $vehiculo->patente = $patente;
-            $vehiculo->precio = $precio;
-            $rta = $vehiculo->save();
-            $datos = array( 'datos' => 'Se guardaron los datos del vehiculo correctamente!');
-        }
-        else{
-            $datos = array( 'datos' => 'Error al guardar el vehiculo, patente existente.');
-
-        }
-
-        
-        
-        $payload = json_encode($datos);
-
-        $response->getBody()->write($payload);
-        return $response
-        ->withHeader('Content-Type', 'application/json');
-    }
-    public function getVehiculo($request, $response, $args){
-        // $rta = User::get(); //select * from users
-        
-        $patente = $args['patente'];
-        $vehiculo = Vehiculo::where('patente', $patente)
-        ->first();
-        if($vehiculo != null){
-            $rta = $vehiculo;
-        }
-        else{
-            $rta = array( 'datos' => 'No se encontro el vehiculo con la patente ' . $patente);
-        }
-        $payload = json_encode($rta);
-        $response->getBody()->write($payload);
-        return $response
-          ->withHeader('Content-Type', 'application/json');
-    }
-
-    public function getStats($request, $response, $args){
-        // $rta = User::get(); //select * from users
-        // $token = $request->getHeader('token');
-        
-        // $user = Token::VerificarToken($token[0]);
-        // var_dump($user);
-        // $tipo = $args['tipo'];
-        // var_dump($tipo);
-        if($args != null){
-            $tipo = $args['tipo'];
-            $rta = Service::where('tipo', $tipo)
-            ->get();
-        }
-        else{
-            $rta = Service::get();
-        }
-        // if($vehiculo != null){
-        //     $rta = $vehiculo;
-        // }
-        // else{
-            // }
-        // $rta = array( 'datos' => 'No se encontro el vehiculo con la patente ' . $patente);
-        $payload = json_encode($rta);
-        $response->getBody()->write($payload);
-        return $response
-          ->withHeader('Content-Type', 'application/json');
-    }
-
-    public function altaServicio($request, $response, $args){
-        
-        $parsedBody = $request->getParsedBody();
-        $id = $parsedBody['id']; //int
-        $tipo = $parsedBody['tipo']; //int -> 10000, 20000, 50000
-        $precio = $parsedBody['precio']; //double
-        $demora = $parsedBody['demora']; //date
-        
-        $servicioBase = Service::where('id', $id)->first();
-        
-        // var_dump( $datos['datos']);
-        $servicioCreado = new Servicio($id,$tipo,$precio,$demora);
-        // var_dump($usuarioCreado);
-        if($servicioBase == null)
-        {
-            $servicio = new Service;
-            $servicio->id = $servicioCreado->id;
-            $servicio->tipo = $servicioCreado->tipo;
-            $servicio->precio = $servicioCreado->precio;
-            $servicio->demora = $servicioCreado->demora;
-            $rta = $servicio->save();
-            $datos['datos'] = 'Se creo el servicio correctamente!';
-            // var_dump($user);
-        }
-        else
-        {
-            $rta = false;
-            $datos['datos'] = "Error al crear servicio, id existente";
+                $datos['datos'] .= "<br> Empleado: Nombre: " . $value['nombre'] . " - Apellido: " . $value['apellido']
+                . "<br> - Fecha de ingreso:" . "  " . $value['created_at']
+                . "<br> - Cantidad de operaciones:" . "  " . $value['operaciones']
+                . "<br> - Estado del empleado:" . "  " . $estadoEmpleado->descripcion. "<br><br>" ;
+                // . "<br> - Precio: " . $value['precio']
+                // . "<br> - Cliente: " . $cliente->nombre . ", " . $cliente->apellido
+                // . "<br> - Empleado: " . $empleado->nombre . ", " . $empleado->apellido
+                // . "<br> - Mesa: " . " Descripcion: " . $estadoMesa->descripcion . " - Codigo: " . $mesa->codigo . "<br><br>";
+            }
             
         }
         $payload = json_encode($datos);
@@ -308,65 +182,6 @@ class SocioController {
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
-    // public function altaTurno($request, $response, $args){
-        
-    //     /**
-    //      * (GET) turno: Se recibe patente y fecha (día) y se debe guardar en el archivo turnos.xxx, fecha,
-    //         *  patente, marca, modelo, precio y tipo de servicio. Si no hay cupo o la patente no existe informar
-    //         * cada caso particular.
-    //      */
-    //     $parsedBody = $request->getParsedBody();
-    //     $patente = $parsedBody['patente']; //int
-    //     $fecha = $parsedBody['fecha'];
-    //     $tipo = $parsedBody['tipo']; //int -> 10000, 20000, 50000
-        
-    //     $vehiculo = Vehiculo::where('patente', $patente)->first();
-    //     $turnoBase = Turno::where('fecha', $fecha)->first();
-    //     $tipoServicioBase = Service::where('tipo', $tipo)->first();
-        
-    //     if($vehiculo != null) //si encontro vehiculo
-    //     {
-    //         if($turnoBase == null){ //si el turno no existe lo creo
-    //             $turno = new Turno;
-    //             $turno->fecha = $fecha;
-    //             $turno->patente = $vehiculo->patente;
-    //             $turno->modelo = $vehiculo->modelo;
-    //             $turno->marca = $vehiculo->marca;
-    //             $turno->precio = $vehiculo->precio;
-    //             $turno->tipo = $tipoServicioBase->tipo;
-    //             $rta = $turno->save();
-    //             $datos['datos'] = 'Se creo el turno correctamente!';
-    //         }
-    //         else{ //como existe el turno no lo creo
-    //             $datos['datos'] = 'No hay disponibilidad de turno para la fecha ' . $fecha;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         $rta = false;
-    //         $datos['datos'] = "No se encuentra el vehiculo";
-            
-    //     }
-    //     $payload = json_encode($datos);
-    //     $response->getBody()->write($payload);
-        
-    //     return $response
-    //       ->withHeader('Content-Type', 'application/json');
-    // }
-
-
-    // public function add($request, $response, $args)
-    // {
-    //     $user = new User;
-    //     $user->name = "Juan";
-    //     $user->email = "Juan@mail.com";
-    //     $user->password = "sdxdsdsds";
-
-    //     $rta = $user->save();
-
-    //     $response->getBody()->write(json_encode($rta));
-    //     return $response;
-    // }
 
     public function update($request, $response, $args)
     {
